@@ -1,0 +1,84 @@
+<html>
+<head>
+	<title>Tags Input Test</title>
+	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+	<script src="jquery.tagsinput.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('.tagsinput').tagsinput();
+			$('.tagsinput').tagsinput('addTag', "lol");
+			$('.tagsinput').tagsinput('addTag', "woot");
+			// $('#input3').tagsinput('removeTag', "is");
+		});
+	</script>
+	<link rel="stylesheet" type="text/css" href="http://newbz.co.uk/reset/reset.css">
+	<style type="text/css">
+		body {
+			font-family: helvetica;
+		}
+		.container_12 div {
+			background-color: #FFF !important;
+			text-align: left;
+		}
+		.container_12 h2 {
+			margin-bottom: 10px;
+			text-align: center;
+		}
+		p, pre {
+			margin-bottom: 10px;
+		}
+		.tagsinput_display {
+			display: block;
+			border: 1px solid #DDD;
+			padding: 10px;
+			width:  428px;
+			margin-bottom: 20px;
+		}
+		.tagsinput_display span.tag {
+			border: 1px solid #09C;
+			-moz-border-radius: 2px;
+			-webkit-border-radius: 2px;
+			display: block;
+			float: left;
+			padding: 5px;
+			text-decoration: none;
+			background: #3cf;
+			color: #068;
+			margin-right: 5px;
+			margin-bottom: 5px;
+			font-size: 13px;
+		}
+		.tagsinput_display span.tag a {
+			font-weight: 700;
+			color: #09C	;
+			text-decoration: none;
+			font-size: 11px;
+			margin-left: 3px;
+		}
+		.tagsinput_display input {
+			width: 60px;
+		}
+		.tagsinput_display input.tagsinput_error {
+			background-color: #F00;
+		}
+	</style>
+</head>
+<body>
+	<div class="container_12">
+		<div class="g_6 p_3">
+			<h2>jQuery TagsInput Test</h2>
+			<p>Start the plugin on all inputs with the class 'tagsinputs'.</p>
+			<pre>$('.tagsinput').tagsinput();</pre>
+			<p>Dynamically add "lol" and "woot".</p>
+			<pre>$('.tagsinput').tagsinput('addTag', "lol");
+
+$('.tagsinput').tagsinput('addTag', "woot");</pre>
+			<input type="text" value="" class="tagsinput" />
+			<p>Start Value = this</p>
+			<input type="text" id="input2" value="this" class="tagsinput" />
+			<p>Start Value = test,is,a,test</p>
+			<input type="text" id="input3" value="test,is,a,test" class="tagsinput" />
+		</div>
+	</div>
+</body>
+</html>
