@@ -16,7 +16,8 @@
 		removeDuplicates: true,
 		onAddTag: null,
 		onRemoveTag: null,
-		onCreate: null
+		onCreate: null,
+		limit: null
 		/*minChars: 0,
 		maxChars: 0,
 		onChange: null,
@@ -99,8 +100,9 @@
 			var add = false;
 			if(this.settings.unique === true) add = !this.tagExist(tag);
 			else add = true;
-			if(add === true) {
-				this.settings.taglist[Object.keys(this.settings.taglist).length] = tag;
+			var tagLength = Object.keys(this.settings.taglist).length;
+			if(add === true && (this.settings.limit == null || tagLength <= this.settings.limit)) {
+				this.settings.taglist[tagLength] = tag;
 				if($('#'+id).next().children('.tag').length === 0)
 					$('#'+id).next().prepend(this.createTag(tag));
 				else
