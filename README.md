@@ -6,6 +6,11 @@ jQuery Tags Input is a jQuery Plug-in.
 Change Log
 ==========
 
+Version 1.1.1
+------------
+
+ - I have added limit. So you can limit the amount of tags.
+
 Version 1.1
 ------------
 
@@ -37,6 +42,7 @@ Options
 		onAddTag: null,
 		onRemoveTag: null,
 		onCreate: null,
+		limit: null
 		/* TO DO */
 		minChars: 0,
 		maxChars: 0,
