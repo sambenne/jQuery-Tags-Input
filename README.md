@@ -6,6 +6,14 @@ jQuery Tags Input is a jQuery Plug-in.
 Change Log
 ==========
 
+Version 1.2
+------------
+
+ - I have implemented the autocomplete.
+ - minChars works with the autocomplete. I will be adding it to the input and adding maxChars at the same time.
+
+I have created my own autocomplete for this so it is at the moment rather basic. It can work either by having direct content or the link to the JSON file. To the the JSON I have used jQuery's $.getJSON function.
+
 Version 1.1.1
 ------------
 
@@ -42,13 +50,13 @@ Options
 		onAddTag: null,
 		onRemoveTag: null,
 		onCreate: null,
-		limit: null
-		/* TO DO */
+		limit: null,
 		minChars: 0,
+		autocomplete_url: url_to_autocomplete_api,
+		autocomplete: { option: value, option: value}
+		/* TO DO */
 		maxChars: 0,
 		onChange: null,
-		autocomplete_url: url_to_autocomplete_api,
-		autocomplete: { option: value, option: value},
 		onHide: null,
 		onDestroy: null,
 		onUpdate: null

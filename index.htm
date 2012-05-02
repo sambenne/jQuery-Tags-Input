@@ -5,7 +5,13 @@
 	<script src="jquery.tagsinput.js"></script>
 	<script>
 		$(document).ready(function() {
-			$('.tagsinput').tagsinput();
+			var data = {"option": "value", "foo": "bar", "testing": "barring"};
+			var url = "test.json";
+			$('.tagsinput').tagsinput({
+				minChars: 2,
+				// autocomplete: data
+				autocomplete_url: url
+			});
 			$('.tagsinput').tagsinput('addTag', "lol");
 			$('.tagsinput').tagsinput('addTag', "woot");
 			// $('#input3').tagsinput('removeTag', "is");
@@ -57,9 +63,33 @@
 		}
 		.tagsinput_display input {
 			width: 60px;
+			position: relative;
 		}
 		.tagsinput_display input.tagsinput_error {
 			background-color: #F00;
+		}
+		.autocomplete {
+			position: absolute;
+			border: 1px solid #DDD;
+			min-width: 100px;
+			min-height: 20px;
+			z-index: 99999;
+		}
+		.autocomplete ul.itemWrapper {
+			width: 200px;
+		}
+		.autocomplete ul li.itemHolder,
+		.autocomplete ul li span.item {
+			width: 200px;
+			height: 40px;
+			vertical-align: middle;
+		}
+		.autocomplete ul li span.item {
+			line-height: 40px;
+		}
+		.autocomplete ul li.itemHolder:hover {
+			cursor: pointer;
+			color: #09c;
 		}
 	</style>
 </head>

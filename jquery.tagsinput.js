@@ -17,12 +17,13 @@
 		onAddTag: null,
 		onRemoveTag: null,
 		onCreate: null,
-		limit: null
-		/*minChars: 0,
+		limit: null,
+		autocomplete: null, /* { option: value, option: value } */
+		autocomplete_url: null, /* url_to_autocomplete_api */
+		minChars: 0
+		/*
 		maxChars: 0,
 		onChange: null,
-		autocomplete_url: url_to_autocomplete_api,
-		autocomplete: { option: value, option: value},
 		onHide: null,
 		onDestroy: null,
 		onUpdate: null*/
@@ -61,11 +62,13 @@
 				class: 'tagsinput_display',
 			}).insertAfter('#'+self.settings.id);
 			if(self.settings.interactive) {
+				/* Create Input */
 				$('#'+self.settings.id).next('.tagsinput_display').append($('<input/>').attr({
 					class: 'tagsinput_input_'+self.settings.id,
 					type: 'text',
 					placeholder: self.settings.placeholder
 				}));
+				/* The main event */
 				$(document).on('keydown', '.tagsinput_input_'+self.settings.id, function(e) {
 					var keyCode = e.keyCode || e.which;
 					if (keyCode == 13 || keyCode == 9 || keyCode == 188) {
@@ -86,6 +89,10 @@
 					if (keyCode == 13 || keyCode == 9) e.preventDefault();
 					if(!self.tagExist($(this).val()) === false) $(this).addClass('tagsinput_error');
 					else $(this).removeClass('tagsinput_error');
+					/* Auto complete */
+					if(self.settings.autocomplete !== null || self.settings.autocomplete_url !== null) {
+						self.autoComplete($(this).val(), self);
+					}
 				});
 			}
 			this.importTags();
@@ -171,6 +178,39 @@
 			$tag.append($('<span />').html(tag));
 			$tag.append($('<a />').attr({"href": '#', 'class': 'removeTag removeTag_'+this.settings.id}).html('&#215;'));
 			return $tag;
+		},
+		autoComplete: function(term) {
+			var $input = '.tagsinput_input_'+this.settings.id;
+			var p = $($input).position();
+			if(term.length >= this.settings.minChars) {
+				if($('.autocomplete').length === 0) $($input).after('<div class="autocomplete"></div>');
+				$('.autocomplete').css({"left": p.left + "px", "display": "none"});
+				if(this.settings.autocomplete !== null) {
+					var data = this.settings.autocomplete;
+					this.autoCompleteFilter(term, data, $input);
+				} else if(this.settings.autocomplete_url !== null) {
+					var $self = this;
+					$.getJSON(this.settings.autocomplete_url, function(ret) {
+						$self.autoCompleteFilter(term, ret, $input);
+					});
+				}
+			}
+		},
+		autoCompleteFilter: function(term, data, $input) {
+			var found = {}
+			$('.autocomplete').html('<ul class="itemWrapper"></ul>');
+			$.map(data, function (val, key) {
+				var isFound = val.search(new RegExp(term, "i"));
+				if(isFound === 0) found[key] = val;
+			});
+			if(Object.keys(found).length > 0) $('.autocomplete').css("display", "block");
+			$.each(found, function(k, v) {
+				$('.autocomplete ul').append('<li id="'+k+'" class="itemHolder"><span class="item">'+v+'</span></li>');
+			});
+			$(document).on('click', '.autocomplete li', function() {
+				$($input).val($(this).text()).focus();
+				$('.autocomplete').remove();
+			});
 		}
 	});
 
